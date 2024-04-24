@@ -42,11 +42,19 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun Counter(state: CounterState) {
-//    val count by remember {
-//        println("remember") // remember{}内の処理は初回の呼び出し時のみ走る。再Compositionでは走らない。
-//        state.count
-//    }
-    val count = rememberCount(state)
+    /**
+     *  初回コンポーズ以外のタイミングでcalculationラムダを再実行したい場合は、rememberにkeyを指定。
+     *  再コンポーズ時にkeyが変化していた場合はラムダが再実行され、新しい計算結果を記憶する。
+     *  再コンポーズ時にkeyが変化していなかった場合はラムダは実行されず、記憶している直近の計算結果を返す。
+     */
+    val count by state.count
+    val eventCount = remember(count) {  // count keyを指定
+        println("remember count: $count")
+        count
+    }
+    println("eventCount: $eventCount")
+
+//    val count = rememberCount(state)
 //    val count = remember { state.count }
     Column(
         modifier = Modifier
@@ -67,4 +75,7 @@ fun Counter(state: CounterState) {
 }
 
 @Composable
-fun rememberCount(state: CounterState) = remember { state.count }
+fun rememberCount(state: CounterState) = remember(state.count) {
+    println("rememberCount")
+    state.count
+}
