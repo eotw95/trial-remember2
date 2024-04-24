@@ -42,11 +42,11 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun Counter(state: CounterState) {
-    val count by remember {
-        println("remember") // remember{}内の処理は初回の呼び出し時のみ走る。再Compositionでは走らない。
-        state.count
-    }
-//    val count = rememberCount()
+//    val count by remember {
+//        println("remember") // remember{}内の処理は初回の呼び出し時のみ走る。再Compositionでは走らない。
+//        state.count
+//    }
+    val count = rememberCount(state)
 //    val count = remember { state.count }
     Column(
         modifier = Modifier
@@ -66,5 +66,5 @@ fun Counter(state: CounterState) {
 
 }
 
-//@Composable
-//fun rememberCount() = remember { CounterState.count }
+@Composable
+fun rememberCount(state: CounterState) = remember { state.count }

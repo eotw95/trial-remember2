@@ -14,14 +14,15 @@ import androidx.compose.runtime.mutableStateOf
 //}
 
 class CounterState() {
-    var count = mutableStateOf(0)
+//    var count = mutableStateOf(0)
+    var count = 0
 
     fun plus() {
-        count.value += 1
+        count += 1
         println("plus count: $count")
     }
     fun minus() {
-        count.value -= 1
+        count -= 1
         println("minus count: $count")
     }
 }
