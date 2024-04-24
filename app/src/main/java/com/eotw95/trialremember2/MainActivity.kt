@@ -42,7 +42,7 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun Counter(state: CounterState) {
-    val count by state.count
+    val count by remember { state.count }
 //    val count = rememberCount()
 //    val count = remember { state.count }
     Column(
