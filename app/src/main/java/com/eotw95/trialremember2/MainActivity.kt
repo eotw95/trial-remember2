@@ -47,13 +47,13 @@ fun Counter(state: CounterState) {
      *  再コンポーズ時にkeyが変化していた場合はラムダが再実行され、新しい計算結果を記憶する。
      *  再コンポーズ時にkeyが変化していなかった場合はラムダは実行されず、記憶している直近の計算結果を返す。
      */
-    val count by state.count
+//    val count by state.count
 //    val eventCount = remember(count) {  // count keyを指定
 //        println("remember count: $count")
 //        count
 //    }
-    val eventCount = rememberEventCount(count = count)
-    println("eventCount: $eventCount")
+    val count = rememberCount(state)
+//    println("eventCount: $eventCount")
 
 //    val count = rememberCount(state)
 //    val count = remember { state.count }
@@ -75,6 +75,8 @@ fun Counter(state: CounterState) {
 
 }
 
+// keyに指定された値が更新されたら再度ラムダ内の処理が走るわけではなく、
+// rememberCount()が再Composeされた時にkeyが変更されていたらラムダ内の処理が再度走る
 @Composable
 fun rememberCount(state: CounterState) = remember(state.count) {
     println("rememberCount")
